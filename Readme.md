@@ -5,5 +5,5 @@ Contains:
 
 -	Docker
 -	Docker compose
--   Node 12
+-   Node
 -   yurn
