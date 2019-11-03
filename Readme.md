@@ -7,3 +7,4 @@ Contains:
 -	Docker compose
 -   Node
 -   yurn
+-   kubectl
