@@ -8,3 +8,4 @@ Contains:
 -   Node
 -   yurn
 -   kubectl
+-   make gcc gcc++

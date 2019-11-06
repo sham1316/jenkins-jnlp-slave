@@ -15,6 +15,7 @@ RUN curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE
 RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
 	&& apt-get update \
 	&& apt-get install -y nodejs \
+	&& apt-get install -y make gcc g++ \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/${K8SVERSION}/bin/linux/amd64/kubectl \
