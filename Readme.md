@@ -2,10 +2,12 @@ Jenkins JNLP slave Docker image with Docker binary
 ==================================================
 
 Contains:
-
+-   make gcc gcc++
+-   kubectl
 -	Docker
 -	Docker compose
+-   NVM
 -   Node
--   yurn
--   kubectl
--   make gcc gcc++
+-   yarn lerna pkg
+
+
