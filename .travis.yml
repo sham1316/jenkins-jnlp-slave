@@ -14,4 +14,4 @@ script:
   - docker run --name test-container -d test-image
 
   # Verify nodejs is available in the container.
-  - docker exec --tty test-container env TERM=xterm ansible --version
+  - docker exec --tty test-container env TERM=xterm node -v
