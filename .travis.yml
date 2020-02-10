@@ -1,17 +1,11 @@
----
 services: docker
-
 before_install:
-  # Upgrade Docker.
-  - sudo apt-get update
-  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
-
+- sudo apt-get update
+- sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
 script:
-  # Test building Dockerfile.
-  - docker build -t test-image .
-
-  # Test running the container.
-  - docker run --name test-container -d test-image
-
-  # Verify nodejs is available in the container.
-  - docker exec --tty test-container env TERM=xterm node -v
+- docker build -t test-image .
+- docker run --name test-container -d test-image
+- docker exec --tty test-container env TERM=xterm node -v
+notifications:
+  slack:
+    secure: iKex4BjG+EOXnwejCBcUzlUkPC8JruMwT+Ca/VOUjHyqfjRQcrfRy8avjBY5qc6fE67jp+SYay+GJbeAluD8z3qQ/a4m5e9flMt1ED420USyT7gzGnijqsK1CYyY4ogegFRArcVw6ccS/IyJ9JLOHClE0iunwnlNuPyzfvHvwmhikWAx80h6EJINRRvgUWK+jOyOrAn8F9CXuDGG0LHii8Sd9lDwjs+1zEeTiyiHYKP9leMiVJ/a/80eJ3VVPHAoLCzqU9zhTGvy0tJwjGn7DNqWCGYiLiM9lZfNxSVP9cvJFvZb+ClhMya/Y9TC1y2OkVm8htR3rT8kaX8y16mZ04VO8IBYlmQrk8PvlAr9PXTw4kkDIcl4AfuHQ1ff8e0e7Nlei57deIGfyOjusKMpYPKicYTgcM97GVOOxeouOLXlh9gauZt/Bf8xLNCjn2xfaegnh7iEo2jXEVZQMRDtR51T4qIm4hL6unHqmdQpuA+uOpgW0NJJpcUyjVWARP2Ifp1Pyduer4QyY5L/GEzCGAzDUw3XqwtW2Ywot9Uju/esE97aznh6kQnQ6iB5eOXD4hRY5aLf1uZ/w7rKJYNVTxI2QdPsgsxDZCz5GNHOA/U0oM6h7eCU3Ug5jFqkP7K1C4XN8+iIhKOvIxMJKVJ3W8BuZ88waHupclJXQ6/bd+I=
