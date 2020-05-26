@@ -1,7 +1,7 @@
 FROM jenkinsci/jnlp-slave
 MAINTAINER Alexey Pishchulin <sham1316@gmail.com>
 
-ENV DOCKER_COMPOSE_VERSION=1.20.1 NODE_VERSION=10.16.3 NVM_VERSION=v0.35.1 K8SVERSION=v1.11.5 
+ENV DOCKER_COMPOSE_VERSION=1.20.1 NODE_VERSION=10.16.3 NVM_VERSION=v0.35.1 K8SVERSION=v1.18.0
 ENV NVM_DIR /usr/local/nvm
 
 USER root
@@ -38,3 +38,6 @@ ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 RUN npm install yarn pkg lerna -g
+
+#install helm3
+RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
