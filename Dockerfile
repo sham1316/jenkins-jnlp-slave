@@ -12,9 +12,17 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # Set debconf to run non-interactively
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
-RUN curl -fsSL https://get.docker.com -o get-docker.sh \
-	&& sh get-docker.sh \
-	&& rm get-docker.sh
+RUN apt update \
+    && apt install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common \
+    && curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
+    && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" \
+    && apt update \
+    && apt-cache policy docker-ce \
+    && apt install -y docker-ce=5:18.09.9~3-0~debian-buster docker-ce-cli=5:18.09.9~3-0~debian-buster containerd.io
+
+#RUN curl -fsSL https://get.docker.com -o get-docker.sh \
+#	&& sh get-docker.sh \
+#	&& rm get-docker.sh
 	
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/${K8SVERSION}/bin/linux/amd64/kubectl \
 	&& chmod +x ./kubectl \
