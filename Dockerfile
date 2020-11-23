@@ -1,7 +1,7 @@
 FROM jenkinsci/jnlp-slave
 MAINTAINER Alexey Pishchulin <sham1316@gmail.com>
 
-ENV DOCKER_COMPOSE_VERSION=1.20.1 NODE_VERSION=10.16.3 NVM_VERSION=v0.35.1 K8SVERSION=v1.18.0
+ENV DOCKER_COMPOSE_VERSION=1.20.1 NODE_VERSION=10.16.3 NVM_VERSION=v0.35.1 K8SVERSION=v1.19.3
 ENV NVM_DIR /usr/local/nvm
 
 USER root
@@ -20,10 +20,6 @@ RUN apt update \
     && apt-cache policy docker-ce \
     && apt install -y docker-ce=5:18.09.9~3-0~debian-buster docker-ce-cli=5:18.09.9~3-0~debian-buster containerd.io
 
-#RUN curl -fsSL https://get.docker.com -o get-docker.sh \
-#	&& sh get-docker.sh \
-#	&& rm get-docker.sh
-	
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/${K8SVERSION}/bin/linux/amd64/kubectl \
 	&& chmod +x ./kubectl \
 	&& mv ./kubectl /usr/bin/kubectl
@@ -49,3 +45,5 @@ RUN npm install yarn pkg lerna -g
 
 #install helm3
 RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+
+RUN helm plugin install https://github.com/databus23/helm-diff --version master
