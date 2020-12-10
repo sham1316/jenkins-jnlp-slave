@@ -1,4 +1,4 @@
-FROM jenkinsci/jnlp-slave
+FROM jenkins/inbound-agent:4.6-1
 MAINTAINER Alexey Pishchulin <sham1316@gmail.com>
 
 ENV DOCKER_COMPOSE_VERSION=1.20.1 NODE_VERSION=10.16.3 NVM_VERSION=v0.35.1 K8SVERSION=v1.19.3
