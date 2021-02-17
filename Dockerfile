@@ -1,3 +1,5 @@
+FROM gcr.io/kaniko-project/executor:v1.5.0 as kaniko
+
 FROM jenkins/inbound-agent:4.6-1
 MAINTAINER Alexey Pishchulin <sham1316@gmail.com>
 
@@ -7,7 +9,7 @@ ENV NVM_DIR /usr/local/nvm
 USER root
 
 # Replace shell with bash so we can source files
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+#RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Set debconf to run non-interactively
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
@@ -18,7 +20,7 @@ RUN apt update \
     && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" \
     && apt update \
     && apt-cache policy docker-ce \
-    && apt install -y docker-ce=5:18.09.9~3-0~debian-buster docker-ce-cli=5:18.09.9~3-0~debian-buster containerd.io
+    && apt install -y docker-ce=5:20.10.0~3-0~debian-buster docker-ce-cli=5:20.10.0~3-0~debian-buster containerd.io
 
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/${K8SVERSION}/bin/linux/amd64/kubectl \
 	&& chmod +x ./kubectl \
@@ -47,3 +49,7 @@ RUN npm install yarn pkg lerna -g
 RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
 RUN helm plugin install https://github.com/databus23/helm-diff --version master
+
+COPY --from=kaniko /kaniko /kaniko
+
+WORKDIR /kaniko
